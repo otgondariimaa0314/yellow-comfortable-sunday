@@ -5,9 +5,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const userRouter = require('./src/routes/user.route.ts');
 const bodyParser = require('body-parser');
+const mailService = require('./src/services/mail.service.ts');
 
 app.use(bodyParser());
+
 app.use(morgan());
 
 // we've started you off with Express,
@@ -16,12 +19,18 @@ app.use(morgan());
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
-  response.sendFile(__dirname + '/views/index.html');
+  response.render('index');
 });
+
+app.use(userRouter);
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
+  setInterval(() => {mailService.checkList()}, 15000);
 });
