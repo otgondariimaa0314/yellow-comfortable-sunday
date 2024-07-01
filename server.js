@@ -32,5 +32,5 @@ app.use(userRouter);
 // listen for requests :)
 const listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
-  setInterval(() => {mailService.checkList()}, 15000);
+  // setInterval(() => {mailService.checkList()}, 15000);
 });
