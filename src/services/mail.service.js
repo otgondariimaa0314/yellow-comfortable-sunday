@@ -14,25 +14,31 @@ const transporter = nodemailer.createTransport({
 const checkList = async () => {
     // check if there is any request in pending list
     if(userStorage.pendingList.length > 0){
-        const length = await sendEmail(userStorage.pendingList);
-        console.log('length:', length);
+        console.log('length before:', userStorage.pendingList.length);
+        const lengthSend = userStorage.pendingList.length;
+
+        const lengthSent = await sendEmail(userStorage.pendingList, lengthSend);
+        console.log('length:', lengthSent);
 
         // remove from pending request list
-        userStorage.pendingList.splice(0, length);
+        userStorage.pendingList.splice(0, lengthSent);
 
-        console.log('email send end', length);
+        console.log('email send end', lengthSent);
     }
 }
 
 const getList = (list) => {
 
     // prepare list in text
-    return list.map(item => {
+    
+    const text = list.map(item => {
         return `name: ${item.username}\naddress: ${item.address}\nwish: ${item.wish}\n----------------`;
     }).join('\n');
+    console.log(text);
+    return text;
 }
 
-const sendEmail = async (requests) => {
+const sendEmail = async (requests, length) => {
     try {
         console.log('email send start', requests);
 
@@ -44,7 +50,7 @@ const sendEmail = async (requests) => {
     };
 
     await transporter.sendMail(mailContent);
-    return requests.length;
+    return length;
     } catch (error) {
         console.log("ERROR", error)
     }
