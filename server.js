@@ -5,9 +5,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
-const userRouter = require('./src/routes/user.route.ts');
+const userRouter = require('./src/routes/user.route.js');
 const bodyParser = require('body-parser');
-const mailService = require('./src/services/mail.service.ts');
+const mailService = require('./src/services/mail.service.js');
 
 app.use(bodyParser());
 

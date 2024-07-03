@@ -12,5 +12,7 @@ module.exports = {
     USER_PROFILES_API,
     ERROR_NOT_IN_LIST,
     ERROR_OVER_10,
-    ERROR_SERVER
+    ERROR_SERVER,
+    ERROR_PROFILE,
+    AGE_LIMIT
 }

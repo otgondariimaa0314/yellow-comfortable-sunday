@@ -1,9 +1,9 @@
 const express = require('express');
 const userRouter = express.Router();
-const userService = require('../services/user.service.ts');
-const storage = require('../utils/storage.ts');
-const constrants = require('../constants.ts');
-const helpers = require('../utils/helper.util.ts');
+const userService = require('../services/user.service.js');
+const storage = require('../utils/storage.js');
+const constrants = require('../constants.js');
+const helpers = require('../utils/helper.util.js');
 
 
 userRouter.post('/', async(req, res) => {

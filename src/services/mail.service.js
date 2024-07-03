@@ -1,6 +1,6 @@
 const fs = require('fs');
 const nodemailer = require('nodemailer');
-const storage = require('../utils/storage.ts');
+const userStorage = require('../utils/storage.js');
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
@@ -13,12 +13,12 @@ const transporter = nodemailer.createTransport({
 
 const checkList = async () => {
     // check if there is any request in pending list
-    if(storage.pendingList.length > 0){
-        const length = await sendEmail(storage.pendingList);
+    if(userStorage.pendingList.length > 0){
+        const length = await sendEmail(userStorage.pendingList);
         console.log('length:', length);
 
         // remove from pending request list
-        storage.pendingList.splice(0, length);
+        userStorage.pendingList.splice(0, length);
 
         console.log('email send end', length);
     }
